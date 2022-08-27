@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; } */
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+/* 
+.example-container {
+    height: -webkit-fill-available;
+    margin: 10px;
+    border: 1px solid #555;
+  } */
+
+  /* .mat-spinner {
+    position: relative;
+    margin-left: 50%;
+    margin-right: 50%;
+} */
+
+/* .center {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+} */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

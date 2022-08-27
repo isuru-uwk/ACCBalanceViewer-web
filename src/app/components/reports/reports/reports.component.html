@@ -1,0 +1,42 @@
+<div class="demo-button-container">
+    <mat-form-field appearance="outline">
+        <mat-label>Month</mat-label>
+        <mat-select [(value)]="selectedMonth">
+            <mat-option *ngFor="let month of months" [value]="month.id">
+                {{month.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Year</mat-label>
+        <mat-select [(value)]="selectedYear">
+            <mat-option *ngFor="let year of years" [value]="year">
+                {{year}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button color="primary" mat-raised-button (click)="getReport()" class="demo-button">
+        Get Report
+    </button>
+</div>
+
+<table class="mat-elevation-z8 demo-table" *ngIf="report">
+    <!-- Position Column -->
+    <thead>
+        <th>R&D</th>
+        <th>Canteen</th>
+        <th>CEO's Car Expenses</th>
+        <th>Marketing</th>
+        <th>Parking Fees</th>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{report.rd}}</td>
+            <td>{{report.canteen}}</td>
+            <td>{{report.ceoCarExpences}}</td>
+            <td>{{report.marketing}}</td>
+            <td>{{report.parking}}</td>
+        </tr>
+    </tbody>
+</table>

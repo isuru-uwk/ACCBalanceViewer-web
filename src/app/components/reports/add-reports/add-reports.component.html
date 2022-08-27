@@ -1,0 +1,41 @@
+<form [formGroup]="reportForm" novalidate class="example-form">
+
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Month</mat-label>
+                    <mat-select formControlName="month">
+                        <mat-option *ngFor="let month of months" [value]="month.id">
+                            {{month.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Year</mat-label>
+                    <mat-select formControlName="year" [(value)]="selectedYear">
+                        <mat-option *ngFor="let year of years" [value]="year">
+                            {{year}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="file" formControlName="file" class="file-upload" accept=".xls,.xlsx"
+                    (change)="onFileSelected($event)">
+                <mat-error *ngIf="!isValidFile">File must be excel or tab separated text file</mat-error>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button mat-raised-button type="submit" color="primary" (click)="addReport()">Add Report</button>
+            </td>
+        </tr>
+    </table>
+
+</form>

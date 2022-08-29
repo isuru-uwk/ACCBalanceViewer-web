@@ -20,6 +20,10 @@
     </button>
 </div>
 
+<span>{{getCurrentReportDate()}}</span>
+<div *ngIf="isLoading" style="text-align:center">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
 <table class="mat-elevation-z8 demo-table" *ngIf="report">
     <!-- Position Column -->
     <thead>
@@ -32,11 +36,11 @@
     </thead>
     <tbody>
         <tr>
-            <td>{{report.rd}}</td>
-            <td>{{report.canteen}}</td>
-            <td>{{report.ceoCarExpences}}</td>
-            <td>{{report.marketing}}</td>
-            <td>{{report.parking}}</td>
+            <td>Rs {{report.rd}}</td>
+            <td>Rs {{report.canteen}}</td>
+            <td>Rs {{report.ceoCarExpences}}</td>
+            <td>Rs {{report.marketing}}</td>
+            <td>Rs {{report.parking}}</td>
         </tr>
     </tbody>
 </table>

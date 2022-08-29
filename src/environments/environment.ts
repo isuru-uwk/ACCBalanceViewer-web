@@ -2,14 +2,6 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// export const environment = {
-//   production: false,
-//   resource: {
-//       uri: "https://localhost:7154/",
-//       scopes: "api://e54eef7b-4539-4d0f-8d93-e81f0279603a/access_as_user",
-//     }
-// };
-
 export const environment = {
 	production: false,
 	envName: 'LocalDevelopment',
@@ -28,7 +20,7 @@ export const environment = {
 		scopes: ['user.read', 'openid', 'profile']
 	},
 	api: {
-		resourceUri: 'https://localhost:7154',
+		resourceUri: 'https://accbalanceviewer-api.azurewebsites.net',
 		resourceScope: 'api://e54eef7b-4539-4d0f-8d93-e81f0279603a/access_as_user'
 	}
 };

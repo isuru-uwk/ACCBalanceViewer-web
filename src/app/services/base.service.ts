@@ -36,9 +36,9 @@ export class BaseService {
 
 		if (this.checkAccessDenied(error)) {
 
-			this._snackBar.open('User is not authorized', 'Access Denied!');
+			this._snackBar.open('User is not authorized', 'Access Denied!',{duration:5000});
 		} else {
-			this._snackBar.open('Some error occured!', 'Error!');
+			this._snackBar.open(error.statusText, 'Error!',{duration:5000});
 		}
 
 		return throwError(error);

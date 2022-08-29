@@ -1,6 +1,7 @@
 import { MsalService } from '@azure/msal-angular';
 import { Component } from '@angular/core';
 import { AccountInfo } from '@azure/msal-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,6 @@ export class AppComponent {
   }
 
   logout(): void {
-    this.msalService.instance.logout();
+    this.msalService.instance.logoutRedirect({postLogoutRedirectUri:environment.adconfig.postLogoutRedirectUri}); 
   }
 }

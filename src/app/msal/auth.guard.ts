@@ -1,38 +1,47 @@
 import { Location } from "@angular/common";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { MsalGuard, MsalService } from '@azure/msal-angular';
+import { MsalService, MSAL_GUARD_CONFIG } from '@azure/msal-angular';
 import { Observable, of } from "rxjs";
+import { MsalGuardConfiguration } from './auth.config';
+import { concatMap, catchError } from 'rxjs/operators';
+
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
 
     constructor(
-        private msalGuard: MsalGuard,
+        @Inject(MSAL_GUARD_CONFIG)
+        private msalGuardConfig: MsalGuardConfiguration,
         private msalService: MsalService,
         private location: Location
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let canActivate = this.msalGuard.canActivate(route, state);
-        if (canActivate && this.msalService.instance.getActiveAccount()) {
-            //Redirect to login
-            this.loginInteractively(state.url);
-        }
-        else {
-            console.log(state.url, route?.data['role'] as string);
-            if (route?.data['role'] != undefined) {
-                // this.checkUserHasRoles(route);
-                var assignedRoles = this.msalService.instance.getAllAccounts()[0].idTokenClaims?.roles ?? [];
-                if (assignedRoles?.indexOf(route?.data['role'] as string) > -1) {
-                    return true;
-                } else {
-                    return false;
+
+        return this.msalService.handleRedirectObservable().pipe(
+            concatMap(() => {
+                if (!this.msalService.instance.getAllAccounts().length) {
+                    return this.loginInteractively(state.url);
                 }
-            }
-            return true;
-        }
-        return canActivate;
+                if (route?.data['role'] != undefined) {
+                    var assignedRoles = this.msalService.instance.getAllAccounts()[0].idTokenClaims?.roles ?? [];
+                    if (assignedRoles?.indexOf(route?.data['role'] as string) > -1) {
+                        return of(true);
+                    } else {
+                        return of(false);
+                    }
+                } else {
+                    return of(true);
+
+                }
+            }),
+            catchError(() => {
+                return of(false);
+            })
+        );
+
     }
 
 
@@ -42,6 +51,7 @@ export class AuthGuard implements CanActivate {
         this.msalService.loginRedirect({
             redirectStartPage,
             scopes: [],
+            ...this.msalGuardConfig.authRequest
 
         });
         return of(false);

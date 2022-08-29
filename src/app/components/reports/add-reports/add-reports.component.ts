@@ -1,3 +1,4 @@
+import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -25,6 +26,8 @@ export class AddReportsComponent implements OnInit {
 
   months = Months;
   years = Years;
+
+  isSubmitting = false;
 
 
   ngOnInit(): void {
@@ -65,10 +68,10 @@ export class AddReportsComponent implements OnInit {
 
     let month: number = this.reportForm.get('month').value;
     let year: number = this.reportForm.get('year').value;
+    this.isSubmitting = true;
+    this.reportService.addReport$(year, month, this.file).pipe(finalize(() => (this.isSubmitting = false))).subscribe(res => {
+      this.snackBar.open("Report added successfully!" , "Success",{duration:5000});
 
-    this.reportService.addReport$(year, month, this.file).subscribe(res => {
-      this.snackBar.open("Report added successfully!" , "Success");
-      
     })
   }
 

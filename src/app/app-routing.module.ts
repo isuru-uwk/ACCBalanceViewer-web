@@ -1,3 +1,4 @@
+import { MsalGuard } from '@azure/msal-angular';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './msal/auth.guard';
 import { NgModule } from '@angular/core';
@@ -6,11 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
+    pathMatch: 'full',
     component: HomeComponent,
     canActivate: [AuthGuard]
   },
@@ -21,13 +18,15 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    redirectTo: '',
+    pathMatch: 'full',
+
   },
   {
     path: 'code',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    redirectTo: '',
+    pathMatch: 'full',
+
   }, // Needed for hash routing
 
 ];

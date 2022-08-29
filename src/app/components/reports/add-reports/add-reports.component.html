@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td>
-                <button mat-raised-button type="submit" color="primary" (click)="addReport()">Add Report</button>
+                <button mat-raised-button type="submit" [class.spinner]="isSubmitting" [disabled]="isSubmitting" color="primary" (click)="addReport()">Add Report</button>
             </td>
         </tr>
     </table>
